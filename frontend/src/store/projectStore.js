@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import formatTimestamp from "../assets/helper/formatTimestamp";
 
-const API_URL = "https://ques-ai-1.onrender.com";
+const API_URL = "https://ques-ai-1.onrender.com/api";
 axios.defaults.withCredentials = true;
 
 export const useProjectStore = create((set,get) => ({
