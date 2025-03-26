@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://ques-ai-1.onrender.com",
+    origin: "https://ques-ai-9s2t.onrender.com",
     credentials: true,
   })
 );
