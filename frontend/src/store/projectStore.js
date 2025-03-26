@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import formatTimestamp from "../assets/helper/formatTimestamp";
 
-// const API_URL = "http://localhost:5000/api";
 const API_URL = "https://ques-ai-1.onrender.com";
 axios.defaults.withCredentials = true;
 
