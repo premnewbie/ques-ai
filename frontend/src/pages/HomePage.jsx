@@ -144,7 +144,7 @@ const HomePage = () => {
             {projects?.map((project) => (
               <div
                 key={project._id}
-                className="shadow-md bg-blue-50 w-[250px] h-25 rounded-lg flex items-center cursor-pointer my-2"
+                className="shadow-md bg-blue-50 w-[250px] h-25 rounded-lg flex items-center cursor-pointer my-10 border border-gray-300"
                 onClick={() => navigate(`/project/${project._id}`)}
               >
                 <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4">

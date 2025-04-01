@@ -24,22 +24,22 @@ const EditFile = ({ closeModal, id, fileId }) => {
           <h1 className="text-2xl font-bold mt-3">Upload From Youtube</h1>
         </div>
         <span
-          className="text-2xl p-2 bg-gray-200 font-bold cursor-pointer"
+          className="flex items-center justify-center text-2xl p-2 font-semibold cursor-pointer w-10 h-10 rounded-full hover:bg-gray-300"
           onClick={closeModal}
         >
-          X
+          <span>X</span>
         </span>
       </div>
       <div className="mt-3">
         <form onSubmit={handleSave}>
-          <label>Name:</label>
+          <label className="mb-1">Name</label>
           <input
             type="text"
             value={file.name}
             className="w-full h-10 border border-gray-400 rounded-md mb-3 p-2"
             readOnly
           />
-          <label>Transcript:</label>
+          <label className="mb-1">Transcript</label>
           <textarea
             type="text"
             value={desc}
