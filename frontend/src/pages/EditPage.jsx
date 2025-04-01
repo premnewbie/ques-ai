@@ -52,8 +52,8 @@ const EditPage = () => {
         </div>
         <div>
           <div className="flex items-center justify-between mt-5">
-            <div className="flex gap-4 items-center font-bold text-2xl cursor-pointer">
-              <IoArrowBackSharp onClick={() => navigate(`/project/${id}`)} />
+            <div className="flex gap-2 items-center font-bold text-2xl cursor-pointer">
+              <IoArrowBackSharp className="w-11 h-11 p-2 rounded-full hover:bg-gray-200" onClick={() => navigate(`/project/${id}`)} />
               <h1>Edit Transcript</h1>
             </div>
             <div>
