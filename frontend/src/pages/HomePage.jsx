@@ -144,10 +144,10 @@ const HomePage = () => {
             {projects?.map((project) => (
               <div
                 key={project._id}
-                className="shadow-md bg-blue-50 w-[250px] h-25 rounded-lg flex items-center cursor-pointer"
+                className="shadow-md bg-blue-50 w-[250px] h-25 rounded-lg flex items-center cursor-pointer my-2"
                 onClick={() => navigate(`/project/${project._id}`)}
               >
-                <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4 my-2">
+                <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4">
                   {project.title.split(" ").length > 1
                     ? project.title.split(" ")[0][0].toUpperCase()  +
                       project.title.split(" ")[1][0].toUpperCase() 
