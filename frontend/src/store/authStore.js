@@ -2,7 +2,8 @@ import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const API_URL = "http://localhost:5000/api";
+// const API_URL = "http://localhost:5000/api";
+const API_URL = 'https://ques-ai-9s2t.onrender.com/api'
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
