@@ -72,7 +72,7 @@ export const useProjectStore = create((set,get) => ({
       });
       const file = response.data.file;
 
-      file.createdAt = formatTimestamp(new Date());
+      file.updatedAt = new Date().toISOString(); 
 
       set((state) => ({ files: [...state.files, file] }));
     }catch(error){
