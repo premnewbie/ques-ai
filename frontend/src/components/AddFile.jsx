@@ -4,18 +4,16 @@ import { useParams } from "react-router-dom";
 import { useProjectStore } from "../store/projectStore";
 
 const AddFile = ({ closeModal }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const params = useParams();
+  const { addFile } = useProjectStore();
 
-    const [title,setTitle] = useState('');
-    const [description,setDescription] = useState('');
-    const params = useParams();
-    const {addFile} = useProjectStore();
-
-    const handleUpload = (e) => {
-        e.preventDefault();
-        addFile(title,description,params.id);
-        closeModal();
-    }
-
+  const handleUpload = (e) => {
+    e.preventDefault();
+    addFile(title, description, params.id);
+    closeModal();
+  };
 
   return (
     <div>
@@ -54,7 +52,12 @@ const AddFile = ({ closeModal }) => {
             required
           />
           <div className="flex justify-end mt-5">
-            <button type="submit" className="px-3 p-2 bg-purple-600 font-bold text-white rounded cursor-pointer">Upload</button>
+            <button
+              type="submit"
+              className="px-3 p-2 bg-purple-600 font-bold text-white rounded cursor-pointer"
+            >
+              Upload
+            </button>
           </div>
         </form>
       </div>

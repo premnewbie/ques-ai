@@ -4,12 +4,11 @@ import Login from "../components/Login";
 import SignUp from "../components/SignUp";
 
 const Welcome = () => {
-
-  const [newUser,setNewUser] = useState(false);
+  const [newUser, setNewUser] = useState(false);
 
   const handleUser = (val) => {
-    setNewUser(val)
-  }
+    setNewUser(val);
+  };
 
   return (
     <div className="grid grid-cols-3">
@@ -26,13 +25,21 @@ const Welcome = () => {
           </div>
           <div className="w-[40%] mt-8">
             <h5 className="text-xl">
-            Supercharge Your Distribution using our AI assistant!
+              Supercharge Your Distribution using our AI assistant!
             </h5>
           </div>
         </div>
       </div>
-      {newUser && <div><SignUp handleUser={handleUser} /></div>}
-      {!newUser && <div><Login handleUser={handleUser} /></div>}
+      {newUser && (
+        <div>
+          <SignUp handleUser={handleUser} />
+        </div>
+      )}
+      {!newUser && (
+        <div>
+          <Login handleUser={handleUser} />
+        </div>
+      )}
     </div>
   );
 };

@@ -50,7 +50,7 @@ const ProjectPage = () => {
   return (
     <div className="grid grid-cols-4 p-2 ml-3">
       <Sidebar user={user} openModal={openModal} />
-      <div className="col-span-3 p-5">
+      <div className="col-span-3 p-5 ml-80 w-[100%]">
         <div className="flex justify-between">
           <div className="flex gap-2  font-semibold text-gray-600 cursor-pointer">
             <GoHome size={20} />
@@ -89,10 +89,7 @@ const ProjectPage = () => {
             </div>
             <img src={youtube} alt="youtube-icon" className="w-15 h-15" />
           </div>
-          <div
-            className="flex shadow-md gap-5 p-3 rounded-xl cursor-pointer border border-gray-300"
-            onClick={openModal}
-          >
+          <div className="flex shadow-md gap-5 p-3 rounded-xl cursor-pointer border border-gray-300">
             <div>
               <h1 className="font-bold text-2xl">Upload files</h1>
               <p className="text-gray-500">
@@ -143,9 +140,7 @@ const ProjectPage = () => {
               </div>
             ))}
           {files?.length === 0 && (
-            <div
-              className="flex flex-col items-center py-5 pb-5 gap-5"
-            >
+            <div className="flex flex-col items-center py-5 pb-5 gap-5">
               <img
                 src={upload2}
                 alt="upload-icon"

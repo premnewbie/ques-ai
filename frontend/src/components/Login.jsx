@@ -8,12 +8,11 @@ const Login = ({ handleUser }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const {  isLoading,login  } = useAuthStore();
-
+  const { isLoading, login } = useAuthStore();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    login(email,password);
+    login(email, password);
     navigate("/");
   };
 
@@ -54,7 +53,10 @@ const Login = ({ handleUser }) => {
         </div>
         <p className="text-blue-500 font-semibold">Forgot Password?</p>
       </div> */}
-        <button type="submit" className="w-[70%] bg-purple-800 text-white h-10 font-semibold cursor-pointer">
+        <button
+          type="submit"
+          className="w-[70%] bg-purple-800 text-white h-10 font-semibold cursor-pointer"
+        >
           Login
         </button>
       </form>

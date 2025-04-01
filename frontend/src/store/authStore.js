@@ -31,7 +31,7 @@ export const useAuthStore = create((set) => ({
 
   login: async (email, password) => {
     set({ isLoading: true });
-    console.log("Login function called")
+    console.log("Login function called");
     try {
       const response = await axios.post(`${API_URL}/auth/login`, {
         email,
@@ -54,7 +54,7 @@ export const useAuthStore = create((set) => ({
       const response = await axios.get(`${API_URL}/auth/user`);
       set({ user: response.data.user });
     } catch (error) {
-     console.log("Error from getUser function in auth store",error.response);
+      console.log("Error from getUser function in auth store", error.response);
     } finally {
       set({ fetchingUser: false });
     }

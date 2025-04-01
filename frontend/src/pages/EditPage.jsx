@@ -30,13 +30,13 @@ const EditPage = () => {
   return (
     <div className="grid grid-cols-4 p-2 ml-3">
       <Sidebar user={user} openModal={null} />
-      <div className="col-span-3 p-5">
+      <div className="col-span-3 p-5 ml-75 w-[100%]">
         <div className="flex justify-between">
           <div className="flex gap-2  font-semibold text-gray-600 cursor-pointer">
             <GoHome size={20} />
             <Link to={"/"}>Home Page / </Link>
             <Link to={`/project/${id}`}>{projectName} / </Link>
-            <p className="font-bold text-purple-600"> Add Your Podcast</p>
+            <p className="font-bold text-purple-600"> {file.name} </p>
           </div>
           <div className="flex gap-5">
             <div className="text-black p-2 border border-gray-400 rounded-4xl">
@@ -66,9 +66,7 @@ const EditPage = () => {
             </div>
           </div>
           <div className="p-5 border border-gray-300 rounded-lg shadow-md  mt-10">
-            <h3 className="text-purple-700 font-semibold text-xl">
-              Speaker
-            </h3>
+            <h3 className="text-purple-700 font-semibold text-xl">Speaker</h3>
             <p className="mt-10 text-wrap">{file.description}</p>
           </div>
         </div>

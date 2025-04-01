@@ -1,4 +1,4 @@
-import { useEffect, useState, } from "react";
+import { useEffect, useState } from "react";
 import logopurple from "../assets/logopurple.png";
 import projecthero from "../assets/projecthero.png";
 import { useProjectStore } from "../store/projectStore";
@@ -10,7 +10,8 @@ function extractDateOrTime(timestamp) {
   const now = new Date();
   const date = new Date(timestamp);
 
-  const isToday = now.toISOString().slice(0, 10) === date.toISOString().slice(0, 10);
+  const isToday =
+    now.toISOString().slice(0, 10) === date.toISOString().slice(0, 10);
 
   if (isToday) {
     return date.toISOString().slice(11, 19);
@@ -20,14 +21,12 @@ function extractDateOrTime(timestamp) {
 }
 
 const HomePage = () => {
-  const { projects, getProjects,fetchingProject } = useProjectStore();
+  const { projects, getProjects, fetchingProject } = useProjectStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     getProjects();
@@ -99,7 +98,10 @@ const HomePage = () => {
             aliquip ex ea commodo consequat. Duis aute irure dolor in
             reprehenderit in
           </p>
-          <button className="bg-[#211935] text-center text-white font-semibold p-3 rounded-md flex items-center gap-3 cursor-pointer"  onClick={openModal}>
+          <button
+            className="bg-[#211935] text-center text-white font-semibold p-3 rounded-md flex items-center gap-3 cursor-pointer"
+            onClick={openModal}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -119,10 +121,13 @@ const HomePage = () => {
         </div>
       )}
       {projects?.length > 0 && (
-        <div >
-          <div className="flex justify-between mb-10">
-            <h2 className="text-purple-800 text-xl font-bold">Projects</h2>
-            <button className="bg-[#211935] text-center text-white font-semibold p-3 rounded-md flex items-center gap-3 cursor-pointer"  onClick={openModal}>
+        <div>
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-purple-800 text-xl font-bold mt-1">Projects</h2>
+            <button
+              className="bg-[#211935] text-center text-white font-semibold p-3 rounded-md flex items-center gap-3 cursor-pointer"
+              onClick={openModal}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -149,17 +154,19 @@ const HomePage = () => {
               >
                 <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4">
                   {project.title.split(" ").length > 1
-                    ? project.title.split(" ")[0][0].toUpperCase()  +
-                      project.title.split(" ")[1][0].toUpperCase() 
+                    ? project.title.split(" ")[0][0].toUpperCase() +
+                      project.title.split(" ")[1][0].toUpperCase()
                     : project.title[0].toUpperCase() +
                       project.title[1].toUpperCase()}
                 </h1>
                 <div>
-                  <p className="text-purple-800 font-bold">
-                    {project.title}
+                  <p className="text-purple-800 font-bold">{project.title}</p>
+                  <p className="font-semibold text-sm">
+                    {project.files.length} files
                   </p>
-                  <p className="font-semibold text-sm">{project.files.length} files</p>
-                  <p className="text-xs text-gray-500">Last edited at {extractDateOrTime(project.updatedAt)}</p>
+                  <p className="text-xs text-gray-500">
+                    Last edited at {extractDateOrTime(project.updatedAt)}
+                  </p>
                 </div>
               </div>
             ))}

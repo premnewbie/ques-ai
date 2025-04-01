@@ -22,8 +22,8 @@ const SignUp = ({ handleUser }) => {
         return;
       }
       await signup(username, email, password);
-      setEmail('');
-      setUsername('');
+      setEmail("");
+      setUsername("");
       navigate("/");
     } catch (error) {
       console.log("Error in handleSignup:", error.message);
