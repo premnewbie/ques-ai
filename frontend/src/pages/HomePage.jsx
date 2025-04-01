@@ -147,7 +147,7 @@ const HomePage = () => {
                 className="shadow-md bg-blue-50 w-[250px] h-25 rounded-lg flex items-center cursor-pointer"
                 onClick={() => navigate(`/project/${project._id}`)}
               >
-                <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4">
+                <h1 className="bg-yellow-400 rounded-lg text-4xl font-semibold mx-3 p-4 my-2">
                   {project.title.split(" ").length > 1
                     ? project.title.split(" ")[0][0].toUpperCase()  +
                       project.title.split(" ")[1][0].toUpperCase() 

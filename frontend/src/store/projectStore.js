@@ -110,6 +110,6 @@ export const useProjectStore = create((set,get) => ({
     }catch(error){
       console.log("Error from editFIle function in project store",error.response);
     }
-  },
+  },  
   
 }));
