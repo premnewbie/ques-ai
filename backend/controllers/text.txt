@@ -1,0 +1,182 @@
+import mongoose from "mongoose";
+import Project from "../models/project.model.js";
+
+export const addProject = async (req, res) => {
+  const { title } = req.body;
+  const user = req.user;
+  
+  try {
+    const project = await Project.create({
+      title,
+      user,
+      files: [],
+    });
+
+    return res.status(201).json({ project, message: "Project added successfully" });
+  } catch (error) {
+    console.error("Error in addProject:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getProjects = async (req, res) => {
+  try {
+    // Filter projects by the current user
+    const projects = await Project.find({ user: req.user._id });
+
+    if (projects.length === 0) {
+      return res.status(200).json({ projects: [], message: "No projects found" });
+    }
+    
+    return res.status(200).json({ projects });
+  } catch (error) {
+    console.error("Error in getProjects:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getProject = async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid project ID format" });
+    }
+
+    const project = await Project.findOne({ _id: id, user: req.user._id });
+    
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    return res.status(200).json({ project });
+  } catch (error) {
+    console.error("Error in getProject:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const addFile = async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid project ID format" });
+    }
+
+    if (!name) {
+      return res.status(400).json({ message: "File name is required" });
+    }
+
+    const project = await Project.findOne({ _id: id, user: req.user._id });
+    
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    const file = { fileId: new mongoose.Types.ObjectId(), name, description };
+    project.files.push(file);
+    await project.save();
+
+    return res.status(201).json({ file });
+  } catch (error) {
+    console.error("Error in addFile:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const editFile = async (req, res) => {
+  try {
+    const { description } = req.body;
+    const { id, fileId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(fileId)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const project = await Project.findOne({ _id: id, user: req.user._id });
+    
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    const fileIndex = project.files.findIndex(
+      (file) => file.fileId.toString() === fileId
+    );
+    
+    if (fileIndex === -1) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    if (description) {
+      project.files[fileIndex].description = description;
+    }
+
+    await project.save();
+    
+    return res.status(200).json({ file: project.files[fileIndex] });
+  } catch (error) {
+    console.error("Error in editFile:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const deleteFile = async (req, res) => {
+  try {
+    const { id, fileId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(fileId)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const project = await Project.findOne({ _id: id, user: req.user._id });
+    
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    const fileIndex = project.files.findIndex(
+      (file) => file.fileId.toString() === fileId
+    );
+    
+    if (fileIndex === -1) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    project.files.splice(fileIndex, 1);
+    await project.save();
+
+    return res.status(200).json({ project });
+  } catch (error) {
+    console.error("Error in deleteFile:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getFile = async (req, res) => {
+  try {
+    const { id, fileId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(fileId)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const project = await Project.findOne({ _id: id, user: req.user._id });
+    
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    const file = project.files.find(file => file.fileId.toString() === fileId);
+    
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    return res.status(200).json({ file });
+  } catch (error) {
+    console.error("Error in getFile:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};

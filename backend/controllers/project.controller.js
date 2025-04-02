@@ -21,12 +21,17 @@ export const addProject = async (req, res) => {
 };
 
 export const getProjects = async (req, res) => {
+  const user = req.user;
+
   try {
-    const projects = await Project.find();
+    const projects = await Project.find({ user: user._id });
 
     if (projects.length === 0) {
-      return res.status(400).json({ message: "No project found" });
+      return res
+        .status(200)
+        .json({ projects: [], message: "No projects found" });
     }
+
     return res.status(200).json({ projects });
   } catch (error) {
     console.log("Error from the get project function", error.message);
@@ -36,22 +41,30 @@ export const getProjects = async (req, res) => {
 
 export const getProject = async (req, res) => {
   const { id } = req.params;
+  const user = req.user;
+
   try {
-    const project = await Project.findById(id);
+    const project = await Project.findOne({ _id: id, user: user._id });
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
 
     return res.status(200).json({ project });
   } catch (error) {
-    console.log("Error from the get project function", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error in getProject:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
 export const addFile = async (req, res) => {
   try {
+    const user = req.user;
     const { name, description } = req.body;
     const { id } = req.params;
 
-    const project = await Project.findById(id);
+    const project = await Project.findOne({ _id: id, user: user._id });
+
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -71,10 +84,12 @@ export const addFile = async (req, res) => {
 
 export const editFile = async (req, res) => {
   try {
-    const {  description } = req.body;
+    const user = req.user;
+    const { description } = req.body;
     const { id, fileId } = req.params;
 
-    const project = await Project.findById(id);
+    const project = await Project.findOne({ _id: id, user: user._id });
+
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -93,8 +108,6 @@ export const editFile = async (req, res) => {
 
     const file = project.files[fileIndex];
 
-    console.log(file)
-
     return res.status(200).json({ file });
   } catch (error) {
     console.log("Error from the EditFile function", error.message);
@@ -104,9 +117,11 @@ export const editFile = async (req, res) => {
 
 export const deleteFile = async (req, res) => {
   try {
+    const user = req.user;
     const { id, fileId } = req.params;
 
-    const project = await Project.findById(id);
+    const project = await Project.findOne({ _id: id, user: user._id });
+
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -131,17 +146,20 @@ export const deleteFile = async (req, res) => {
   }
 };
 
-export const getFile = async (req,res) => {
-  
+export const getFile = async (req, res) => {
   try {
+    const user = req.user;
     const { id, fileId } = req.params;
 
-    const project = await Project.findById(id);
+    const project = await Project.findOne({ _id: id, user: user._id });
+
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    const filteredFile = project.files.filter((file) => file.fileId.toString() === fileId);
+    const filteredFile = project.files.filter(
+      (file) => file.fileId.toString() === fileId
+    );
 
     const file = filteredFile[0];
 
