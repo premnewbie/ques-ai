@@ -18,7 +18,7 @@ const EditPage = () => {
   const closeModal = () => setIsModalOpen(false);
 
   const { user, logout } = useAuthStore();
-  const { projectName, getProjectFiles, getFile, file } = useProjectStore();
+  const { projectName, getProjectFiles, getFile, file, isLoading } = useProjectStore();
 
   const navigate = useNavigate();
 
@@ -26,6 +26,16 @@ const EditPage = () => {
     getProjectFiles(id);
     getFile(id, fileId);
   }, [getProjectFiles, id, getFile, fileId]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl font-semibold text-gray-700 animate-pulse">
+          Loading...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-4 p-2 ml-3">

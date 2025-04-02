@@ -96,6 +96,7 @@ export const useProjectStore = create((set, get) => ({
   },
 
   getFile: async (id, fileId) => {
+    set({isLoading: true})
     try {
       const response = await axios.get(
         `${API_URL}/auth/projects/${id}/files/${fileId}`
@@ -107,6 +108,8 @@ export const useProjectStore = create((set, get) => ({
         "Error from getFIle function in project Store",
         error.response
       );
+    }finally{
+      set({isLoading: false})
     }
   },
 
